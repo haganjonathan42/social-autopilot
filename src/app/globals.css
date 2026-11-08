@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b0d10;
+  --surface: #14171c;
+  --surface-2: #1b1f26;
+  --border: #272c35;
+  --text: #e8eaed;
+  --muted: #9aa3af;
+  --accent: #5b8cff;
+  --ok: #3fb950;
+  --warn: #d29922;
+  --err: #f85149;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --surface-2: #f0f2f5;
+    --border: #dfe3e8;
+    --text: #15181d;
+    --muted: #5f6672;
+    --accent: #2f5fd8;
+    --ok: #1a7f37;
+    --warn: #9a6700;
+    --err: #cf222e;
+  }
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+textarea,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.field {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+}
+
+.field:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--muted);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-danger {
+  color: var(--err);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
