@@ -66,8 +66,8 @@ curl -X POST "https://<your-app>.vercel.app/api/drafts" \
 ## Path B — commit a file into `/drafts` (backup)
 
 Use this when the network can only reach GitHub. Commit a `.json` file into the
-`drafts/` folder of `haganjonathan42/social-autopilot`. A cron job imports new
-files every 15 minutes.
+`drafts/` folder of `haganjonathan42/social-autopilot` (a private repo, so the
+commit needs write access to it). A cron job imports new files every 15 minutes.
 
 - One file holds either a single draft object or an array of them.
 - **Name files uniquely**, e.g. `2026-11-10-ai-agents.json`. The file path is the
