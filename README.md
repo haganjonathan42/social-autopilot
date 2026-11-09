@@ -32,8 +32,9 @@ Daily Claude scheduled task
 ```
 
 Path B exists because the scheduled task's network may only be able to reach
-GitHub. The repo is private, so the importer needs a `GITHUB_TOKEN` with
-read-only Contents access to it; a fine-grained personal access token is enough. Either path produces the same `pending` draft, and nothing is published
+GitHub. The repo is public, so the importer reads it without credentials;
+setting `GITHUB_TOKEN` anyway raises the GitHub API rate limit from 60 calls an
+hour to 5000. Either path produces the same `pending` draft, and nothing is published
 until you approve it.
 
 ## Routes
@@ -74,7 +75,6 @@ DASHBOARD_PASSWORD
 SESSION_SECRET
 CRON_SECRET
 GITHUB_REPO=haganjonathan42/social-autopilot
-GITHUB_TOKEN            # the repo is private, so the importer needs this
 ENABLED_PLATFORMS=facebook
 FACEBOOK_PAGE_ID
 FACEBOOK_PAGE_ACCESS_TOKEN

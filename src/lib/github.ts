@@ -15,6 +15,13 @@ export interface ImportReport {
   duplicates: number;
   invalid: { path: string; errors: string[] }[];
   importedIds: number[];
+  /**
+   * True when the drafts folder does not exist in the repo. Before the first
+   * draft is committed that is normal, but it is also what a typo in
+   * GITHUB_DRAFTS_PATH looks like — and the two are indistinguishable from a
+   * plain "0 files" result, so say which it was.
+   */
+  folderMissing: boolean;
 }
 
 /**
@@ -65,6 +72,7 @@ export async function importDraftsFromGitHub(): Promise<ImportReport> {
     duplicates: 0,
     invalid: [],
     importedIds: [],
+    folderMissing: false,
   };
 
   const listResponse = await fetch(listUrl, { headers, cache: "no-store" });
@@ -81,6 +89,7 @@ export async function importDraftsFromGitHub(): Promise<ImportReport> {
           `Check GITHUB_REPO, and set GITHUB_TOKEN if the repo is private.`,
       );
     }
+    report.folderMissing = true;
     return report;
   }
   if (!listResponse.ok) {

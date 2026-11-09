@@ -192,6 +192,15 @@ export async function importNow(
     await requireSession();
     const report = await importDraftsFromGitHub();
     revalidatePath("/dashboard");
+    if (report.folderMissing) {
+      return {
+        error:
+          `The folder "${process.env.GITHUB_DRAFTS_PATH ?? "drafts"}" does not ` +
+          `exist in ${process.env.GITHUB_REPO} on branch ` +
+          `${process.env.GITHUB_BRANCH ?? "main"}. That is expected before the ` +
+          `first draft is committed; otherwise check GITHUB_DRAFTS_PATH.`,
+      };
+    }
     const invalid =
       report.invalid.length > 0
         ? ` ${report.invalid.length} file(s) were invalid: ` +
