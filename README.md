@@ -54,6 +54,9 @@ scheduler can call them too.
 
 ## Setup
 
+[DEPLOY.md](DEPLOY.md) is the step-by-step checklist, including each
+platform's credentials. The short version:
+
 ### 1. Database
 
 Add Postgres to the Vercel project (Storage -> Neon / Vercel Postgres). It sets
@@ -119,9 +122,11 @@ as a reply. Set the four OAuth 1.0a values from the X developer portal
 
 `vercel.json` asks for every 15 minutes (import) and every 5 minutes (publish).
 
-**Vercel's Hobby plan only runs cron jobs once a day**, and caps them at two. On
-Hobby, either upgrade to Pro, or delete the `crons` block and point an external
-scheduler (cron-job.org, GitHub Actions, your own machine) at the two endpoints:
+**Vercel's Hobby plan only runs cron jobs once a day**, and does not promise a
+punctual run — a job set for 01:00 fires somewhere in the 01:00 hour. A deploy
+whose `vercel.json` asks for more than that is rejected. On Hobby, either
+upgrade to Pro, or delete the `crons` block and point an external scheduler
+(cron-job.org, GitHub Actions, your own machine) at the two endpoints:
 
 ```bash
 curl "https://<your-app>.vercel.app/api/cron/import-drafts?secret=$CRON_SECRET"

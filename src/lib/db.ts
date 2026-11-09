@@ -1,5 +1,4 @@
 import { neon } from "@neondatabase/serverless";
-import { required } from "./env";
 import { SCHEMA_STATEMENTS } from "./schema";
 
 /**
@@ -10,9 +9,24 @@ import { SCHEMA_STATEMENTS } from "./schema";
  */
 let client: ReturnType<typeof neon> | null = null;
 
+/**
+ * Vercel's Postgres/Neon integrations do not agree on a variable name: some set
+ * DATABASE_URL, others POSTGRES_URL. Accept either rather than failing a first
+ * deploy over the spelling.
+ */
+function connectionString(): string {
+  const url = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+  if (!url) {
+    throw new Error(
+      "No database connection string: set DATABASE_URL (or POSTGRES_URL).",
+    );
+  }
+  return url;
+}
+
 export function sql() {
   if (!client) {
-    client = neon(required("DATABASE_URL"));
+    client = neon(connectionString());
   }
   return client;
 }

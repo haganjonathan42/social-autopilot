@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 /** Unauthenticated liveness check. Reports no secrets, only whether they exist. */
 export async function GET() {
   const configured = {
-    database: Boolean(process.env.DATABASE_URL),
+    database: Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL),
     intakeToken: Boolean(process.env.INTAKE_TOKEN),
     dashboardPassword: Boolean(process.env.DASHBOARD_PASSWORD),
     sessionSecret: Boolean(process.env.SESSION_SECRET),
